@@ -5,33 +5,39 @@ namespace AdaCalculatorTest
 {
     public class AdaCalculatorTest
     {
-        [Fact]
-        public void Calculate_SumTwoNumbers_ReturnOperationAndResult()
+        [Theory]
+        [InlineData(2, -4, -2)]
+        [InlineData(2, 0, 2)]
+        [InlineData(5.5, 3.5, 9)]
+        public void Calculate_SumTwoNumbers_ReturnOperationAndResult(double n1, double n2, double expected)
         {
             // Arrange
             CalculatorMachine calcMach = new CalculatorMachine(new Calculator());
             // Act
-            (string operation, double result) op = calcMach.Calculate("sum", 4, 3);
+            (string operation, double result) op = calcMach.Calculate("sum", n1, n2);
             // Assert
             Assert.Equal("sum", op.operation);
-            Assert.Equal(7, op.result);
+            Assert.Equal(expected, op.result);
         }
 
-        [Fact]
-        public void Calculate_MultiplyTwoNumbers_ReturnOperationAndResult()
+        [Theory]
+        [InlineData(2, -4, -8)]
+        [InlineData(2, 0, 0)]
+        [InlineData(1.1, 5, 5.5)]
+        public void Calculate_MultiplyTwoNumbers_ReturnOperationAndResult(double n1, double n2, double expected)
         {
             CalculatorMachine calcMach = new CalculatorMachine(new Calculator());
 
-            (string operation, double result) op = calcMach.Calculate("multiply", 2, 4);
+            (string operation, double result) op = calcMach.Calculate("multiply", n1, n2);
 
             Assert.Equal("multiply", op.operation);
-            Assert.Equal(8, op.result);
+            Assert.Equal(expected, op.result);
         }
 
         [Theory]
         [InlineData(2, 4, -2)]
         [InlineData(2, 0, 2)]
-        [InlineData(5, -4, 9)]
+        [InlineData(5.5, -4.5, 10)]
         public void Calculate_SubtractTwoNumbers_ReturnOperationAndResult(double n1, double n2, double expected)
         {
             CalculatorMachine calcMach = new CalculatorMachine(new Calculator());
@@ -42,15 +48,18 @@ namespace AdaCalculatorTest
             Assert.Equal(expected, op.result);
         }
 
-        [Fact]
-        public void Calculate_DivideTwoNumbers_ReturnOperationAndResult()
+        [Theory]
+        [InlineData(2, -4, -0.5)]
+        [InlineData(800, 2, 400)]
+        [InlineData(10.2, 2, 5.1)]
+        public void Calculate_DivideTwoNumbers_ReturnOperationAndResult(double n1, double n2, double expected)
         {
             CalculatorMachine calcMach = new CalculatorMachine(new Calculator());
 
-            (string operation, double result) op = calcMach.Calculate("divide", 6, 2);
+            (string operation, double result) op = calcMach.Calculate("divide", n1, n2);
 
             Assert.Equal("divide", op.operation);
-            Assert.Equal(3, op.result);
+            Assert.Equal(expected, op.result);
         }
 
         [Fact]
